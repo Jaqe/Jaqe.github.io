@@ -92,11 +92,17 @@ var transform = pfx + "transform";
 var rinner = $("#rcircle");
 var numberLoc = [];
 var betAmount = $("#betAmount");
+var betMaara = $("#moneyAmount");
+var moneyAmount;
+var balanceAmount;
+var betNumber = $("#betNumber");
 
 $.keyframe.debug = true;
 
 createWheel();
 function createWheel() {
+  document.getElementById("balance").value = 999;
+
   var temparc = 360 / numorder.length;
   for (var i = 0; i < numorder.length; i++) {
     numberLoc[numorder[i]] = [];
@@ -143,23 +149,33 @@ if(betAmount.val() == "") {
 }
 });
 
+
+placeBet.click(function() {
+  
+  moneyAmount = document.getElementById("betAmount").value;
+
+  document.getElementById("moneyAmount").value = moneyAmount + "  " + "ASD";
+});
+
 btnSpin.click(function() {
 	
-	if(!isNaN(document.getElementById("betAmount").value) && document.getElementById("betAmount").value > 0){
-		
-		if(document.getElementById("balance").value > document.getElementById("betAmount").value) {
-			document.getElementById("balance").value = document.getElementById("balance").value - document.getElementById("betAmount").value;		
-			
-			  if ($("input").val() == "") {
-			var rndNum = Math.floor(Math.random() * 34 + 0);
-				} else {
-					var rndNum = Math.floor(Math.random() * 34 + 0);
-				}
+  balanceAmount = document.getElementById("balance").value;
+  var rndNum = Math.floor(Math.random() * 34 + 0);
 
-				winningNum = rndNum;
-				spinTo(winningNum);
+	if(!isNaN(moneyAmount) && moneyAmount > 0 && !isNaN(document.getElementById("betNumber").value) && document.getElementById("betNumber").value){
+
+		if(balanceAmount >= moneyAmount) 
+    {
+        winningNum = rndNum;
+        winNumber = winningNum;
+        document.getElementById("moneyAmount").value = winningNum;
+        spinTo(winningNum);
+
+			balanceAmount -= moneyAmount;		
 		}
 	}
+
+  document.getElementById("balance").value = balanceAmount;
 });
 
 $("#btnb").click(function() {
@@ -220,6 +236,11 @@ function ballrotateTo(deg) {
     duration: temptime, // [optional, default: 0, in ms] how long you want it to last in milliseconds
     timingFunction: "ease-in-out", // [optional, default: ease] specifies the speed curve of the animation
     complete: function() {
+      if(document.getElementById("betNumber").value == winNumber)
+      {
+          balanceAmount += (document.getElementById("betAmount").value * 14); 
+          document.getElementById("balance").value = balanceAmount; 
+      }
       finishSpin();
     } //[optional]  Function fired after the animation is complete. If repeat is infinite, the function will be fired every time the animation is restarted.
   });
