@@ -96,7 +96,7 @@ var betMaara = $("#moneyAmount");
 var moneyAmount;
 var balanceAmount;
 var betNumber = $("#betNumber");
-
+var one = $("#1");
 $.keyframe.debug = true;
 
 createWheel();
@@ -141,12 +141,8 @@ function createWheel() {
   //console.log(numberLoc);
 }
 
-placeBet.click(function() {
-
-if(betAmount.val() == "") {
-} else {
-	
-}
+one.click(function() {
+  document.getElementById("betNumber").value = 1;
 });
 
 
