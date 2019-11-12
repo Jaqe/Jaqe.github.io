@@ -3,8 +3,8 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background: url(https://atari.irc-galleria.net/get/?source=/fi-i/03/51/09/84/130279137.jpg?i=$5$OxnASIWWiBaXo$BtlSW9Rt.3JYg5gJV67521rBMzHFSL8omWYOj/OUeo4&key=130279137.jpg);
-  background-repeat: no-repeat;
+  /*background: url(https://atari.irc-galleria.net/get/?source=/fi-i/03/51/09/84/130279137.jpg?i=$5$OxnASIWWiBaXo$BtlSW9Rt.3JYg5gJV67521rBMzHFSL8omWYOj/OUeo4&key=130279137.jpg);
+  */background-repeat: no-repeat;
   background-size: 50% 100%;
   overflow: hidden;
   margin: 0;
@@ -322,6 +322,27 @@ height: 3em;
 background: none repeat scroll 0% 0% rgba(93, 65, 23, 1);
 color: #FFF;
 text-align: center;
+cursor: pointer;
+line-height: 3em;
+border-radius: 1em;
+margin: .2em;
+float: left;
+box-shadow: 0 0 1em #333;
+border-bottom: solid .1em rgba(0, 0, 0, 1);
+}
+
+.buttonControl {
+    display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-gap: 10px;
+  position: absolute;
+  left: 10px;
+  top: 15px;
+width: 5em;
+height: 3em;
+background: none repeat scroll 0% 0% rgba(93, 65, 23, 1);
+color: #FFF;
+text-align: left;
 cursor: pointer;
 line-height: 3em;
 border-radius: 1em;
