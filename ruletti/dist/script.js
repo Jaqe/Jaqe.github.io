@@ -96,11 +96,14 @@ var betMaara = $("#moneyAmount");
 var moneyAmount;
 var balanceAmount;
 var betNumber = $("#betNumber");
-var one = $("#1");
+var clicked_button = $("button").value;
+var isSpinning = 0;
+
 $.keyframe.debug = true;
 
 createWheel();
 function createWheel() {
+  isSpinning = 0;
   document.getElementById("balance").value = 999;
 
   var temparc = 360 / numorder.length;
@@ -141,37 +144,46 @@ function createWheel() {
   //console.log(numberLoc);
 }
 
-one.click(function() {
-  document.getElementById("betNumber").value = 1;
+$("button").click(function() {
+  if(isSpinning == 0)
+  {
+      var clicked_button = $(this).val();
+      document.getElementById("betNumber").value = clicked_button;
+  }
 });
-
 
 placeBet.click(function() {
   
-  moneyAmount = document.getElementById("betAmount").value;
+  if(isSpinning == 0)
+  {
+      moneyAmount = document.getElementById("betAmount").value;
 
-  document.getElementById("moneyAmount").value = moneyAmount + "  " + "ASD";
+      document.getElementById("moneyAmount").value = moneyAmount;
+  }
 });
 
 btnSpin.click(function() {
 	
-  balanceAmount = document.getElementById("balance").value;
-  var rndNum = Math.floor(Math.random() * 34 + 0);
+  if(isSpinning == 0)
+  {
+      balanceAmount = document.getElementById("balance").value;
+        var rndNum = Math.floor(Math.random() * 34 + 0);
 
-	if(!isNaN(moneyAmount) && moneyAmount > 0 && !isNaN(document.getElementById("betNumber").value) && document.getElementById("betNumber").value){
+        if(!isNaN(moneyAmount) && moneyAmount > 0 && !isNaN(document.getElementById("betNumber").value) && document.getElementById("betNumber").value){
 
-		if(balanceAmount >= moneyAmount) 
-    {
-        winningNum = rndNum;
-        winNumber = winningNum;
-        document.getElementById("moneyAmount").value = winningNum;
-        spinTo(winningNum);
+          if(balanceAmount >= moneyAmount) 
+          {
+              winningNum = rndNum;
+              winNumber = winningNum;
+              isSpinning = 1;
+              spinTo(winningNum);
 
-			balanceAmount -= moneyAmount;		
-		}
-	}
+            balanceAmount -= moneyAmount;   
+          }
+        }
 
-  document.getElementById("balance").value = balanceAmount;
+        document.getElementById("balance").value = balanceAmount;
+  }
 });
 
 $("#btnb").click(function() {
@@ -232,6 +244,7 @@ function ballrotateTo(deg) {
     duration: temptime, // [optional, default: 0, in ms] how long you want it to last in milliseconds
     timingFunction: "ease-in-out", // [optional, default: ease] specifies the speed curve of the animation
     complete: function() {
+                isSpinning = 0;
       if(document.getElementById("betNumber").value == winNumber)
       {
           balanceAmount += (document.getElementById("betAmount").value * 14); 
